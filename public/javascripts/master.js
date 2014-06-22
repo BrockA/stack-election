@@ -469,7 +469,7 @@ var StackElections = (function () {
         */
         stalkMetaCandidates(users, true);
 
-        Meddle.With(Settings.siteName).users(users).badges().pagesize(100).all().sort('type').max('named').filter('3gY1MumGZ6PD').get(function (badges) {
+        Meddle.With(Settings.siteName).users(users).badges().pagesize(100).all().sort('type').max('named').filter('-LnY933UmurI.ZE').get(function (badges) {
             var lists = $('.badge_list ul:empty');
 
             StackElections.options.selectedBadges.forEach(function (badge) {
@@ -483,7 +483,12 @@ var StackElections = (function () {
 
             badges.forEach(function (badge) {
                 if (StackElections.options.selectedBadges.indexOf(badge.name) !== -1) {
-                    rendered['user-' + badge.user.user_id].find('.badge_list li').filter(match).addClass('badge_received');
+                    var usrBadgeEntry = rendered['user-' + badge.user.user_id].find('.badge_list li').filter(match);
+                    usrBadgeEntry.addClass('badge_received');
+
+                    if (badge.award_count > 1) {
+                        usrBadgeEntry.append ('<span class="badge_cnt">x ' + badge.award_count + '</span>');
+                    }
                 }
 
                 function match() {
